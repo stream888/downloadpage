@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html style="height:100%;">
+
+<head>
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,,shrink-to-fit=no" name="viewport">
+    <meta charset="UTF-8">
+    <title>链尚游戏</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            background: linear-gradient(to bottom right, #0e37d9, #22d4b3) no-repeat;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            width: 100%;
+            font-weight: 300;
+            height: calc(100% - 40px);
+        }
+        
+        /*蒙板提示语开始*/
+       .popWindow {
+        background-color:#9D9D9D;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        filter: alpha(opacity=50);
+        opacity: 0.5;
+        z-index: 1;
+        position: absolute;
+		
+	    }
+	    .maskLayer {
+	        background-color:#000;
+	        width: 200px;
+	        height: 30px;
+	        line-height: 30px;
+	        left: 50%;
+	        top: 50%;
+			color:#fff;
+	        z-index: 2;
+	        position: absolute;
+			text-align:center;
+	    }
+       /*蒙板提示语结束*/
+      
+        /*提示语开始*/
+        #prompt{
+        	text-align: center;
+        	margin-bottom: 10px;
+        	
+        }
+        #prompt span{
+        	color:red;
+        }
+        /*提示语结束*/
+
+        img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .button {
+            cursor: pointer;
+            border-radius: 200px;
+            background: linear-gradient(to right, #ffc53b, #fc9004);
+            ;
+            border: none;
+            color: white;
+
+            font-weight: 300;
+            font-size: 20px;
+            font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+            text-decoration: none;
+            text-align: center;
+            line-height: 50px;
+            padding: 0 40px;
+            display: inline-block;
+            box-sizing: border-box;
+            transition-property: all;
+            transition-duration: 0.5s;
+            width: 300px;
+            height: 50px;
+            box-shadow: 3px 3px 3px #657488;
+            animation-name: mysecond;
+            animation-duration: 1s;
+            animation-timing-function: linear;
+            animation-delay: 0.1s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            animation-play-state: running;
+        }
+        
+        /*toast提示语开始*/
+	    .toast-wrap{
+		      opacity: 0;
+		      position: fixed;
+		      bottom: 10%;
+		      color: #fff;
+		      width: 100%;
+		      text-align: center;
+		   }
+		   .toast-msg{
+		      background-color: rgba(0,0,0,0.7);
+		      padding: 2px 5px;
+		      border-radius: 5px;
+		   }
+		  .toastAnimate{
+		      animation: toastKF 10s;
+		  }
+		  @keyframes toastKF{
+		      0% {opacity: 0;}
+		     25% {opacity: 1; z-index: 9999}
+		     50% {opacity: 1; z-index: 9999}
+		     75% {opacity: 1; z-index: 9999}
+		     100% {opacity: 0; z-index: 0}
+		  }
+       /*toast提示语结束*/
+
+        @keyframes myfirst {
+            0% {
+                transform: rotate(3deg);
+            }
+
+            100% {
+                transform: rotate(-3deg);
+            }
+        }
+
+        @keyframes mysecond {
+            0% {
+                box-shadow: #fc9004 0px 0px 40px;
+            }
+
+            100% {
+                box-shadow: white 0px 0px 40px;
+            }
+        }
+
+        .button2 {
+            cursor: pointer;
+            border-radius: 200px;
+            background: #ffffff;
+            border: none;
+            color: #307ee5;
+            opacity: 0.8;
+            font-weight: 300;
+            font-size: 16px;
+            font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+            text-decoration: none;
+            text-align: center;
+            line-height: 40px;
+            /* padding: 0 40px; */
+            display: inline-block;
+            box-sizing: border-box;
+            transition-property: all;
+            transition-duration: .3s;
+            width: 130px;
+            height: 40px;
+        }
+
+        span {
+            color: white;
+            font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+            font-size: 14px;
+            clear: both;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+	<!--蒙板提示语开始-->
+	<div id='prompt'>
+		温馨提示：微信不让下载~请<span style='color: red;'>点击右上角按钮</span>,选择<span span style='color: red;'>在浏览器中打开</span>
+		，即可正常下载。
+	</div>
+	
+	<div onclick="showDiv()" style="display:block; cursor:pointer">
+          	弹出蒙板
+    </div>
+    <div id="popWindow" class="popWindow" style="display: none;">
+    </div>
+    <div id="maskLayer" class="maskLayer" style="display: none;">
+          <a href="#" onclick="closeDiv()"  style="cursor:pointer;text-decoration: none;">
+          	  关闭蒙板 
+          </a>
+	</div>
+	<!--蒙板提示语关闭-->
+
+	
+	<!--toast提示语开始-->
+	<div class="toast-wrap">
+            <span class="toast-msg"></span>
+    </div>
+    <!--toast提示语结束-->
+    
+    <div style="height:13%;width:100%;">
+        <div style="margin:0 auto; width:100%; height:100%;max-width: 680px;">
+            <div style="width:35%;height:100%;float:left;margin-left:10%;margin-right: 15px;padding-top: 20px;">
+                <img src="./img/ic_logo@2x.png" width="50%">
+            </div>
+            <div style="width:20%;height:100%;float:left;margin-right: 20px;text-align: center;">
+                <img src="./img/erweima_down.png" width="50%">
+                <span>去下载</span>
+            </div>
+            <div style="width:20%;height:100%;float:left;text-align: center;">
+                <img src="./img/erweima_wap.png" width="50%">
+                <span>去登录</span>
+            </div>
+        </div>
+    </div>
+    <div style="height:24%;text-align:center;clear: left;">
+        <img src="./img/ic_zhenhanlaixi@2x.png">
+    </div>
+    <div style="text-align:center;height: 15%;">
+        <table style="width: 100%;height: 100%;">
+            <tr>
+                <td style="text-align: center; vertical-align: middle;">
+                    <input type="submit" value="免安装立即登录" class="button" onclick="wapLink(event)">
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+    <div style="height:36%;text-align:center;"><img src="./img/ic_peitu@2x.png"></div>
+    <div style="text-align:center;height: 10%;width: 100%">
+        <table style="width: 100%;height: 100%;">
+            <tr>
+                <td style="text-align: center; vertical-align: middle;">
+                    <input type="submit" value="安卓APP下载" class="button2" style="margin-right: 20px;" onclick="androidLink(event)">
+                    <input type="submit" value="苹果APP下载" class="button2" onclick="iosLink(event)">
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</body>
+<script type="text/javascript">
+	
+//	微信判断开始
+	function isWeiXin(){
+	    var ua = window.navigator.userAgent.toLowerCase();
+	    if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+	        return true;
+	    }else{
+	        return false;
+	    }
+	}
+	
+	window.onload = function(){
+	    if(isWeiXin()){
+	        var p = document.getElementById('prompt');
+	        p.innerHTML = window.navigator.userAgent;
+	    }
+	}
+//	微信判断结束
+	
+	
+//	蒙板提示语开始
+	 function showDiv() {
+        document.getElementById('popWindow').style.display = 'block';
+        document.getElementById('maskLayer').style.display = 'block';      
+    }
+    function closeDiv() {
+        document.getElementById('popWindow').style.display = 'none';
+        document.getElementById('maskLayer').style.display = 'none';
+    }
+//	蒙板提示语结束
+	   
+	   
+//	toast提示语开始
+	function toast(msg){
+	    setTimeout(function(){
+	        document.getElementsByClassName('toast-wrap')[0].getElementsByClassName('toast-msg')[0].innerHTML=msg;
+	        var toastTag = document.getElementsByClassName('toast-wrap')[0];
+	        toastTag.className = toastTag.className.replace('toastAnimate','');
+	        setTimeout(function(){
+	            toastTag.className = toastTag.className + ' toastAnimate';
+	        }, 100);
+	    },500);
+ 	}
+//	toast提示语结束
+	
+    function androidLink(event){
+        window.location.href = "http://androd.enthtx.com/lianshang.apk";
+    }
+
+    function iosLink(event){
+        var i = Math.round(Math.random() * 10);
+        if (i % 2 >= 0) {
+            location.href = "itms-services://?action=download-manifest&url=https://down.jjzx188.com/lianshangMA.plist";
+        }
+        toast('正在下载，请返回主屏幕查看');
+    }
+
+    function wapLink(event){
+        window.open("http://lianshang.webx008.com/");
+    }
+    
+    
+
+    
+
+</script>
+
+</html>
